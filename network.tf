@@ -30,7 +30,7 @@ resource "aws_subnet" "public_subnet-1a" {
     Name    = "${var.project}-${var.environment}-public-1a"
     Project = var.project
     Env     = var.environment
-    Typen   = "public"
+    Type    = "public"
   }
 }
 
@@ -44,7 +44,7 @@ resource "aws_subnet" "public_subnet-1c" {
     Name    = "${var.project}-${var.environment}-public-1c"
     Project = var.project
     Env     = var.environment
-    Typen   = "public"
+    Type    = "public"
   }
 }
 
@@ -58,7 +58,7 @@ resource "aws_subnet" "private_subnet-1a" {
     Name    = "${var.project}-${var.environment}-private-1a"
     Project = var.project
     Env     = var.environment
-    Typen   = "private"
+    Type    = "private"
   }
 }
 
@@ -72,7 +72,7 @@ resource "aws_subnet" "private_subnet-1c" {
     Name    = "${var.project}-${var.environment}-private-1c"
     Project = var.project
     Env     = var.environment
-    Typen   = "private"
+    Type    = "private"
   }
 }
 
@@ -87,7 +87,7 @@ resource "aws_route_table" "public-rt" {
     Name    = "${var.project}-${var.environment}-public-rt"
     Project = var.project
     Env     = var.environment
-    Typen   = "public"
+    Type    = "public"
   }
 }
 
@@ -108,7 +108,7 @@ resource "aws_route_table" "private-rt" {
     Name    = "${var.project}-${var.environment}-private-rt"
     Project = var.project
     Env     = var.environment
-    Typen   = "private"
+    Type    = "private"
   }
 }
 
