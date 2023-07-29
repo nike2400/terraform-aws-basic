@@ -10,6 +10,14 @@ terraform {
       version = "~>3.0"
     }
   }
+  # tfstate stored in s3
+  # you must execute "terraform init" when you change the storage for tfstate file 
+  backend "s3" {
+    bucket  = "aws-basic-tfstate-20230729"
+    key     = "terraform.tfstate"
+    region  = "ap-northeast-1"
+    profile = "terraform"
+  }
 }
 
 # ---------------------------------
