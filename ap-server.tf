@@ -5,7 +5,7 @@
 # Key pair
 resource "aws_key_pair" "keypair" {
   key_name   = "${var.project}-${var.environment}-kaypair"
-  public_key = file("./src/aws-basic-dev-keypair.pub")
+  public_key = file("./src/basic-structure-dev.pub")
 
   tags = {
     Name    = "${var.project}-${var.environment}-kaypair"
