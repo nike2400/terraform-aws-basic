@@ -43,4 +43,15 @@ resource "aws_lb_listener" "alb_listener_http" {
     type             = "forward"
     target_group_arn = aws_lb_target_group.alb_target_group.arn
   }
-} 
+}
+
+resource "aws_lb_listener" "alb_listener_https" {
+  load_balancer_arn = aws_lb.alb.arn
+  port              = 443 # port allowed
+  protocol          = "HTTPS"
+  certificate_arn   = aws_acm_certificate.alb_cert.arn
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.alb_target_group.arn
+  }
+}
