@@ -2,7 +2,7 @@
 # Amazon Certificate Manager
 # ---------------------------------
 
-# Certificate for ALB
+# Certificate for ALB in Tokyo region
 resource "aws_acm_certificate" "alb_cert" {
   domain_name       = "*.${var.domain}"
   validation_method = "DNS"
@@ -40,6 +40,8 @@ resource "aws_route53_record" "route53_acm_dns_resolve" {
   records         = [each.value.record]
 }
 
+# DNS validation
+# When DNS validation, you must add CNAME record to Route53. You can add the CNAME record from ACM.
 resource "aws_acm_certificate_validation" "alb_cert_valid" {
   certificate_arn         = aws_acm_certificate.alb_cert.arn
   validation_record_fqdns = [for record in aws_route53_record.route53_acm_dns_resolve : record.fqdn]
