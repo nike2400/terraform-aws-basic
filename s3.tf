@@ -27,6 +27,10 @@ resource "aws_s3_bucket_versioning" "s3_static_bucket_versioning" {
 resource "aws_s3_bucket_policy" "s3_static_bucket_policy" {
   bucket = aws_s3_bucket.s3_static_bucket.id
   policy = data.aws_iam_policy_document.s3_static_bucket_policy_doc.json
+
+  # Due to the change in AWS settings, you mus set "depends_on" to make sure that access_block is created before bucket_policy
+  # Some resources says that you must set depends_on the other way round but it doesn't work.
+  depends_on = [aws_s3_bucket_public_access_block.s3_static_bucket_block]
 }
 
 # Public access block depends on bucket policy for static bucket
@@ -36,7 +40,6 @@ resource "aws_s3_bucket_public_access_block" "s3_static_bucket_block" {
   block_public_policy     = true
   ignore_public_acls      = true
   restrict_public_buckets = false
-  depends_on              = [aws_s3_bucket_policy.s3_static_bucket_policy]
 }
 
 data "aws_iam_policy_document" "s3_static_bucket_policy_doc" {
@@ -66,6 +69,9 @@ resource "aws_s3_bucket_versioning" "s3_deploy_bucket_versioning" {
 resource "aws_s3_bucket_policy" "s3_deploy_bucket_policy" {
   bucket = aws_s3_bucket.s3_deploy_bucket.id
   policy = data.aws_iam_policy_document.s3_deploy_bucket_policy_doc.json
+  # Due to the change in AWS settings, you mus set "depends_on" to make sure that access_block is created before bucket_policy
+  # Some resources says that you must set depends_on the other way round but it doesn't work.
+  depends_on = [aws_s3_bucket_public_access_block.s3_deploy_bucket_block]
 }
 
 resource "aws_s3_bucket_public_access_block" "s3_deploy_bucket_block" {
@@ -74,7 +80,6 @@ resource "aws_s3_bucket_public_access_block" "s3_deploy_bucket_block" {
   block_public_policy     = true
   ignore_public_acls      = true
   restrict_public_buckets = true
-  depends_on              = [aws_s3_bucket_policy.s3_deploy_bucket_policy]
 }
 
 data "aws_iam_policy_document" "s3_deploy_bucket_policy_doc" {
